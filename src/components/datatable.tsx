@@ -65,7 +65,13 @@ const TH = styled.th<THInterface>`
   `}
 `
 
-const Pagination = styled.div``
+const Pagination = styled.div`
+  margin-top: 20px;
+
+  button + button{
+    margin-left: 10px;
+  }
+`
 
 interface DataTableProps {
   columns: Column[]

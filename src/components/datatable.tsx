@@ -3,7 +3,10 @@ import styled from "styled-components"
 import { Column, useTable, usePagination, useAsyncDebounce } from "react-table"
 import { Align } from "../common"
 
-const DataTableRoot = styled.div``
+const DataTableRoot = styled.div`
+  max-width: 100%;
+  overflow: auto;
+`
 const TableRoot = styled.table`
   width: 100%;
   padding: 0px;
@@ -57,6 +60,7 @@ const TH = styled.th<THInterface>`
   font-size: 14px;
   text-align: inherit;
   text-align: -webkit-match-parent;
+  white-space: nowrap;
 
   ${props =>
     props.textAlign &&

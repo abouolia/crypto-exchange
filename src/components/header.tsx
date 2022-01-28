@@ -1,10 +1,9 @@
 import * as React from "react"
-import PropTypes from "prop-types"
 import { Link } from "gatsby"
 import styled from "styled-components"
 
 const HeaderRoot = styled.header`
-  margin-bottom: 1.45rem;
+  margin-bottom: 2rem;
   background: rgb(22, 82, 240);
   height: 65px;
 `

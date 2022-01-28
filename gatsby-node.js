@@ -3,7 +3,7 @@ exports.createPages = async ({ actions }) => {
   createPage({
     path: "/exchange/:id",
     matchPath: "/exchange/:id",
-    component: require.resolve("./src/templates/single-exchange.tsx"),
+    component: require.resolve("./src/templates/singleExchange.tsx"),
     // context: {},
     // defer: true,
   })

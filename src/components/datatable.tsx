@@ -55,6 +55,8 @@ const TH = styled.th<THInterface>`
   vertical-align: top;
   font-weight: 400;
   font-size: 14px;
+  text-align: inherit;
+  text-align: -webkit-match-parent;
 
   ${props =>
     props.textAlign &&

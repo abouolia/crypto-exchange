@@ -29,7 +29,7 @@ const Thead = styled.thead`
 interface TDInterface {
   textAlign: Align
 }
-const TD = styled.td<TDInterface>`
+export const TD = styled.td<TDInterface>`
   padding: 14px 30px 14px 0px;
 
   ${props =>
@@ -42,6 +42,10 @@ const Tbody = styled.tbody`
   ${TD} {
     padding: 14px 30px;
     border: 0;
+
+    @media (max-width: 769px) {
+      padding: 8px 20px;
+    }
   }
   ${TR} {
     &:hover {
@@ -52,7 +56,7 @@ const Tbody = styled.tbody`
 interface THInterface {
   textAlign: Align
 }
-const TH = styled.th<THInterface>`
+export const TH = styled.th<THInterface>`
   padding: 10px 30px;
   border-bottom: 1px solid rgba(91, 97, 110, 0.2);
   vertical-align: top;
@@ -61,6 +65,10 @@ const TH = styled.th<THInterface>`
   text-align: inherit;
   text-align: -webkit-match-parent;
   white-space: nowrap;
+
+  @media (max-width: 769px) {
+    padding: 8px 20px;
+  }
 
   ${props =>
     props.textAlign &&
@@ -72,7 +80,7 @@ const TH = styled.th<THInterface>`
 const Pagination = styled.div`
   margin-top: 20px;
 
-  button + button{
+  button + button {
     margin-left: 10px;
   }
 `
@@ -84,6 +92,7 @@ interface DataTableProps {
   manualPagination?: boolean
   controlledPagesCount?: number
   onFetchData?: (context: { pageIndex: number; pageSize: number }) => void
+  className?: string
 }
 
 export function DataTable({
@@ -93,6 +102,7 @@ export function DataTable({
   manualPagination,
   onFetchData,
   controlledPagesCount,
+  className,
 }: DataTableProps) {
   // Use the state and functions returned from useTable to build your UI
   const instance = useTable(
@@ -131,13 +141,18 @@ export function DataTable({
 
   // Render the UI for your table
   return (
-    <DataTableRoot>
+    <DataTableRoot className={className}>
       <TableRoot {...getTableProps()}>
         <Thead>
           {headerGroups.map(headerGroup => (
             <TR {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map(column => (
-                <TH {...column.getHeaderProps()} textAlign={column.textAlign}>
+                <TH
+                  {...column.getHeaderProps({
+                    className: column.className,
+                  })}
+                  textAlign={column.textAlign}
+                >
                   {column.render("Header")}
                 </TH>
               ))}
@@ -154,7 +169,9 @@ export function DataTable({
                   return (
                     <TD
                       textAlign={cell.column.textAlign}
-                      {...cell.getCellProps()}
+                      {...cell.getCellProps({
+                        className: cell.column.className,
+                      })}
                     >
                       {cell.render("Cell")}
                     </TD>

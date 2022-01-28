@@ -9,34 +9,6 @@ import { Column } from "react-table"
 
 const ExchangeListRoot = styled.div``
 
-const useExchangeListColumns = (): Column[] => {
-  return React.useMemo(
-    () => [
-      {
-        Header: "Name",
-        accessor: "name",
-        Cell: NameCell,
-      },
-      {
-        Header: "Link",
-        accessor: "url",
-        Cell: LinkCell,
-      },
-      {
-        Header: "Trust Rank",
-        accessor: "trustRank",
-        Cell: TrustRankCell,
-      },
-      {
-        Header: "Trade Volume",
-        accessor: "trade_volume_24h_btc",
-        Cell: TradeVolumeCell,
-        textAlign: Align.Right,
-      },
-    ],
-    []
-  )
-}
 const LinkCell = ({ value }) => {
   return <a href={value}>{value} </a>
 }
@@ -53,7 +25,7 @@ const CoinCellLogo = styled.div`
   margin-right: 12px;
   border: 1px solid #e3e4e7;
 
-  img{
+  img {
     height: 100%;
     width: 100%;
   }
@@ -98,6 +70,41 @@ function TradeVolumeCell({ value }) {
 
 function TrustRankCell({ value }) {
   return <Tag>High</Tag>
+}
+
+/**
+ * Retrieve the exchange list columns.
+ * @returns {Column[]}
+ */
+const useExchangeListColumns = (): Column[] => {
+  return React.useMemo(
+    () => [
+      {
+        Header: "Name",
+        accessor: "name",
+        Cell: NameCell,
+      },
+      {
+        Header: "Link",
+        accessor: "url",
+        Cell: LinkCell,
+        className: 'link'
+      },
+      {
+        Header: "Trust Rank",
+        accessor: "trustRank",
+        Cell: TrustRankCell,
+        className: 'trust_link'
+      },
+      {
+        Header: "Trade Volume",
+        accessor: "trade_volume_24h_btc",
+        Cell: TradeVolumeCell,
+        textAlign: Align.Right,
+      },
+    ],
+    []
+  )
 }
 
 export function ExchangesList({ exchanges }) {

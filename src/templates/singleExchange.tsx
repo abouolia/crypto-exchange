@@ -46,6 +46,10 @@ const DetailItemRoot = styled.div`
   display: flex;
   flex-direction: column;
   width: 25%;
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
 `
 const DetailItemLabel = styled.div`
   font-size: 14px;
@@ -60,11 +64,23 @@ const DetailItemValue = styled.div`
 
 const DetailItems = styled.div`
   display: flex;
+  flex-wrap: wrap;
 
   &:not(:first-of-type) {
     margin-top: 10px;
     border-top: 1px solid #dedfe2;
     padding-top: 10px;
+
+    @media (max-width: 480px) {
+      margin-top: 14px;
+      padding-top: 14px;
+    }
+  }
+
+  ${DetailItemRoot}:not(:last-of-type) {
+    @media (max-width: 480px) {
+      margin-bottom: 16px;
+    }
   }
 `
 

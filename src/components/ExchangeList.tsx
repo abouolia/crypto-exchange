@@ -3,6 +3,7 @@ import styled from "styled-components"
 import * as CurrencyFormat from "react-currency-format"
 import { DataTable } from "./datatable"
 import { Tag } from "./Tags"
+import { Align } from "../common"
 
 const ExchangeListRoot = styled.div``
 
@@ -22,7 +23,8 @@ const useExchangeListColumns = () => {
       {
         Header: "Trade Volume",
         accessor: "trade_volume_24h_btc",
-        Cell: TradeVolumeCell
+        Cell: TradeVolumeCell,
+        textAlign: Align.Right,
       },
     ],
     []

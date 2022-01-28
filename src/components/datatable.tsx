@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import { useTable } from "react-table"
+import { Align } from "../common"
 
 const TableRoot = styled.table`
   width: 100%;
@@ -20,8 +21,18 @@ const Thead = styled.thead`
     border-top: 1px solid 1px solid var(--line);
   }
 `
-const TD = styled.td`
+
+interface TDInterface {
+  textAlign: Align
+}
+const TD = styled.td<TDInterface>`
   padding: 14px 30px 14px 0px;
+
+  ${props =>
+    props.textAlign &&
+    `
+    text-align: ${props.textAlign};
+  `}
 `
 const Tbody = styled.tbody`
   ${TD} {
@@ -34,13 +45,21 @@ const Tbody = styled.tbody`
     }
   }
 `
-const TH = styled.th`
-  padding: 10px 30px 10px 0px;
+interface THInterface {
+  textAlign: Align
+}
+const TH = styled.th<THInterface>`
+  padding: 10px 30px;
   border-bottom: 1px solid rgba(91, 97, 110, 0.2);
-  text-align: center;
   vertical-align: top;
   font-weight: 400;
   font-size: 14px;
+
+  ${props =>
+    props.textAlign &&
+    `
+    text-align: ${props.textAlign};
+  `}
 `
 
 export function DataTable({ columns, data }) {
@@ -50,7 +69,6 @@ export function DataTable({ columns, data }) {
       columns,
       data,
     })
-
   // Render the UI for your table
   return (
     <TableRoot {...getTableProps()}>
@@ -58,7 +76,9 @@ export function DataTable({ columns, data }) {
         {headerGroups.map(headerGroup => (
           <TR {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <TH {...column.getHeaderProps()}>{column.render("Header")}</TH>
+              <TH {...column.getHeaderProps()} textAlign={column.textAlign}>
+                {column.render("Header")}
+              </TH>
             ))}
           </TR>
         ))}
@@ -70,7 +90,14 @@ export function DataTable({ columns, data }) {
           return (
             <TR {...row.getRowProps()}>
               {row.cells.map(cell => {
-                return <TD {...cell.getCellProps()}>{cell.render("Cell")}</TD>
+                return (
+                  <TD
+                    textAlign={cell.column.textAlign}
+                    {...cell.getCellProps()}
+                  >
+                    {cell.render("Cell")}
+                  </TD>
+                )
               })}
             </TR>
           )

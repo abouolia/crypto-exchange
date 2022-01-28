@@ -10,8 +10,8 @@ import PropTypes from "prop-types"
 import styled from "styled-components"
 import { useStaticQuery, graphql } from "gatsby"
 
+import { GlobalStyle } from "./globalStyle"
 import Header from "./header"
-import "./layout.css"
 
 const LayoutRoot = styled.div`
   margin: 0 auto;
@@ -36,6 +36,7 @@ const Layout = ({ children }) => {
 
   return (
     <>
+      <GlobalStyle />
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       <LayoutRoot>
         <main>{children}</main>

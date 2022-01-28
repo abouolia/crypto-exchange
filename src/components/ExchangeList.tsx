@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import * as CurrencyFormat from "react-currency-format"
 import { navigate } from "gatsby"
-import { DataTable } from "./datatable"
+import { DataTable, TD, TH } from "./datatable"
 import { Tag } from "./Tags"
 import { Align } from "../common"
 import { Column } from "react-table"
@@ -88,13 +88,13 @@ const useExchangeListColumns = (): Column[] => {
         Header: "Link",
         accessor: "url",
         Cell: LinkCell,
-        className: 'link'
+        className: "link",
       },
       {
         Header: "Trust Rank",
         accessor: "trustRank",
         Cell: TrustRankCell,
-        className: 'trust_link'
+        className: "trust_link",
       },
       {
         Header: "Trade Volume",
@@ -106,6 +106,18 @@ const useExchangeListColumns = (): Column[] => {
     []
   )
 }
+
+const ExchangeListDataTable = styled(DataTable)`
+  @media (max-width: 769px) {
+    ${TD},
+    ${TH} {
+      &.trust_link,
+      &.link {
+        display: none;
+      }
+    }
+  }
+`
 
 export function ExchangesList({ exchanges }) {
   const columns = useExchangeListColumns()
@@ -119,7 +131,7 @@ export function ExchangesList({ exchanges }) {
 
   return (
     <ExchangeListRoot>
-      <DataTable
+      <ExchangeListDataTable
         columns={columns}
         data={exchanges}
         pagination={true}

@@ -1,13 +1,15 @@
 import React from "react"
 import styled from "styled-components"
 import * as CurrencyFormat from "react-currency-format"
+import { navigate } from "gatsby"
 import { DataTable } from "./datatable"
 import { Tag } from "./Tags"
 import { Align } from "../common"
+import { Column } from "react-table"
 
 const ExchangeListRoot = styled.div``
 
-const useExchangeListColumns = () => {
+const useExchangeListColumns = (): Column[] => {
   return React.useMemo(
     () => [
       {
@@ -87,9 +89,23 @@ function TrustRankCell({ value }) {
 export function ExchangesList({ exchanges }) {
   const columns = useExchangeListColumns()
 
+  // Handle change the route once the pagination or page size change.
+  const handleFetchData = React.useCallback(({ pageIndex, pageSize }) => {
+    const pageNumber = pageIndex + 1
+
+    navigate(`/?page=${pageNumber}`)
+  }, [])
+
   return (
     <ExchangeListRoot>
-      <DataTable columns={columns} data={exchanges} />
+      <DataTable
+        columns={columns}
+        data={exchanges}
+        pagination={true}
+        manualPagination={true}
+        onFetchData={handleFetchData}
+        controlledPagesCount={999999}
+      />
     </ExchangeListRoot>
   )
 }

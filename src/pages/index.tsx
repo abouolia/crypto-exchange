@@ -15,10 +15,16 @@ const IndexPage = ({ serverData }) => (
 
 export default IndexPage
 
-
-export async function getServerData() {
+export async function getServerData({ query }) {
+  const parsedQuery = {
+    page: 1,
+    pageSize: 10,
+    ...query,
+  }
   try {
-    const res = await fetch(`https://api.coingecko.com/api/v3/exchanges?per_page=10&page=1`)
+    const res = await fetch(
+      `https://api.coingecko.com/api/v3/exchanges?per_page=${parsedQuery.pageSize}&page=${parsedQuery.page}`
+    )
 
     if (!res.ok) {
       throw new Error(`Response failed`)
@@ -30,7 +36,7 @@ export async function getServerData() {
     return {
       status: 500,
       headers: {},
-      props: {}
+      props: {},
     }
   }
 }

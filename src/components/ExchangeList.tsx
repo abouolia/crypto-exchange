@@ -18,6 +18,11 @@ const useExchangeListColumns = (): Column[] => {
         Cell: NameCell,
       },
       {
+        Header: "Link",
+        accessor: "url",
+        Cell: LinkCell,
+      },
+      {
         Header: "Trust Rank",
         accessor: "trustRank",
         Cell: TrustRankCell,
@@ -31,6 +36,9 @@ const useExchangeListColumns = (): Column[] => {
     ],
     []
   )
+}
+const LinkCell = ({ value }) => {
+  return <a href={value}>{value} </a>
 }
 
 const CoinCellRoot = styled.div``
@@ -59,7 +67,7 @@ const CoinCellAnchor = styled.a`
 function NameCell({ value, row: { original } }) {
   return (
     <CoinCellRoot>
-      <CoinCellAnchor href={"#"}>
+      <CoinCellAnchor href={`/exchange/${original.id}`}>
         <CoinCellLogo>
           <img src={original.image} />
         </CoinCellLogo>

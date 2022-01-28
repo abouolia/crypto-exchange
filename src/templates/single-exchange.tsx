@@ -18,9 +18,12 @@ const CurrencyHeaderLogo = styled.div`
   height: 50px;
   width: 50px;
   overflow: hidden;
+  border: 1px solid #e3e4e7;
 
   img {
     margin: 0;
+    height: 100%;
+    width: 100%;
   }
 `
 interface CurrencyHeaderProps {

@@ -51,6 +51,12 @@ const CoinCellLogo = styled.div`
   height: 35px;
   overflow: hidden;
   margin-right: 12px;
+  border: 1px solid #e3e4e7;
+
+  img{
+    height: 100%;
+    width: 100%;
+  }
 `
 
 const CoinCellAnchor = styled.a`
